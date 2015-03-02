@@ -35,11 +35,18 @@
  	 * @param array $instance Saved values from database.
  	 */
  	public function widget( $args, $instance ) {
+    global $wpdb;
  		echo $args['before_widget'];
+
  		if ( ! empty( $instance['title'] ) ) {
  			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
  		}
  		echo __( 'This is bad widegt! Ok, not at the monet but this is supposed to slow down yours ite!', 'bad_plugin' );
+
+    $res = $wpdb->query("select post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%'");
+
+    var_dump ($res);
+
  		echo $args['after_widget'];
  	}
 
