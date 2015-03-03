@@ -28,5 +28,11 @@ function bad_api_call( $post_id ) {
 add_action('save_post', 'register_bad_api_call');
 
 
-
+function rt_hello() {
+    ?>
+    <div class="update-nag">
+          <p><?php _e( "Hello from bad plugin! Just try to save post to see my badneess! :P", 'bad-plugin' ); ?></p>
+    </div>
+    <?php
+}
 add_action( 'admin_notices', 'rt_hello' );
