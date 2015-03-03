@@ -22,13 +22,17 @@ function bad_api_notice() {
 }
 
 function bad_api_call( $post_id ) {
+  if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
+  
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
   var_dump($res['body']);
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
 add_action('publish_post', 'bad_api_call');
-add_action('draft_to_publish', 'bad_api_call');
+add_filter('save_post', 'bad_api_call');
+
+// add_action('draft_to_publish', 'bad_api_call');
 
 // add_action('save_post', 'bad_api_call' );
 
