@@ -26,7 +26,7 @@ function bad_api_call( $post_id ) {
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
-add_action('save_post', 'register_bad_api_call');
+add_action('publish_post', 'register_bad_api_call');
 
 
 function rt_hello() {
