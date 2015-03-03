@@ -9,9 +9,24 @@
 	Text Domain: bad-plugin
 */
 
+global $res;
+
+function bad_api_notice() {
+    ?>
+    <div class="error">
+          <p><?php _e( "<h2>" . "BAD API at Work" . $res['body'] ."</h2>", 'bad-plugin' ); ?></p>
+    </div>
+    <?php
+}
+
+
 function bad_api_call( $post_id ) {
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
-  echo "<h2>" . "BAD API at Work" . $res['body'] ."</h2>";
+  add_action( 'admin_notices', 'bad_api_notice' );
 }
 
 add_action('save_post', 'register_bad_api_call');
+
+
+
+add_action( 'admin_notices', 'rt_hello' );
