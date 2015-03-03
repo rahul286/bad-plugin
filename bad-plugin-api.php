@@ -21,7 +21,8 @@ function bad_api_notice() {
 
 
 function bad_api_call( $post_id ) {
-  $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
+  // $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
+  var_dump('Hello');
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
