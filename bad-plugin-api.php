@@ -12,6 +12,7 @@
 global $res;
 
 function bad_api_notice() {
+      gloabal $res;
     ?>
     <div class="error">
           <p><?php _e( "<h2>" . "BAD API at Work" . $res['body'] ."</h2>", 'bad-plugin' ); ?></p>
