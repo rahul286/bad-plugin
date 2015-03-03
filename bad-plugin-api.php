@@ -23,7 +23,7 @@ function bad_api_notice() {
 function bad_api_call( $post_id ) {
   if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 
-  $st = wp_is_post_revision( $post_id );
+  $st = get_post_status( $post_id );
 
   if ( $st != 'publish' )	return;
 
