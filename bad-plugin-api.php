@@ -23,9 +23,9 @@ function bad_api_notice() {
 
 function bad_api_call( $post_id ) {
   if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
-  
+
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
-  var_dump($res['body']);
+  var_dump($res);
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
