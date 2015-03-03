@@ -21,7 +21,7 @@ function bad_api_notice() {
     <?php
 }
 
-function bad_api_call( $post_id ) {
+function bad_api_call( $new_status, $old_status, $post  ) {
   if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
@@ -30,7 +30,8 @@ function bad_api_call( $post_id ) {
 }
 
 add_action('publish_post', 'bad_api_call');
-add_filter('save_post', 'bad_api_call');
+add_action('post_updated', 'bad_api_call');
+add_filter('transition_post_status', 'bad_api_call');
 
 // add_action('draft_to_publish', 'bad_api_call');
 
