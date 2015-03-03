@@ -20,7 +20,6 @@ function bad_api_notice() {
     <?php
 }
 
-
 function bad_api_call( $post_id ) {
   // $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
   var_dump('Hello');
