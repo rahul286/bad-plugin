@@ -13,6 +13,7 @@ global $res;
 
 function bad_api_notice() {
     global $res;
+    var_dump($res);
     ?>
     <div class="error">
           <p><?php _e( "<h2>" . "BAD API at Work" . $res['body'] ."</h2>", 'bad-plugin' ); ?></p>
@@ -22,12 +23,14 @@ function bad_api_notice() {
 
 function bad_api_call( $post_id ) {
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
-  var_dump($res);
+  var_dump($res['body']);
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
 add_action('publish_post', 'bad_api_call');
-add_action('save_post', 'bad_api_call' );
+add_action('draft_to_publish', 'bad_api_call');
+
+// add_action('save_post', 'bad_api_call' );
 
 
 function rt_hello() {
