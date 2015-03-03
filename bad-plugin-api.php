@@ -21,13 +21,13 @@ function bad_api_notice() {
 }
 
 function bad_api_call( $post_id ) {
-  // $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
-  var_dump('Hello');
+  $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
+  var_dump($res);
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
 add_action('publish_post', 'bad_api_call');
-add_action( 'save_post', 'bad_api_call' );
+add_action('save_post', 'bad_api_call' );
 
 
 function rt_hello() {
