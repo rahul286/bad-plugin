@@ -12,7 +12,6 @@
 global $res;
 
 function bad_api_notice() {
-    global $res;
     var_dump($res);
     ?>
     <div class="error">
@@ -21,8 +20,10 @@ function bad_api_notice() {
     <?php
 }
 
-function bad_api_call( $new_status, $old_status, $post  ) {
+function bad_api_call( $post_id ) {
   if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
+
+  if ( wp_is_post_revision( $post_id ) )	return;
 
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
   var_dump($res);
@@ -31,7 +32,9 @@ function bad_api_call( $new_status, $old_status, $post  ) {
 
 add_action('publish_post', 'bad_api_call');
 add_action('post_updated', 'bad_api_call');
-add_filter('transition_post_status', 'bad_api_call');
+add_action('save_post', 'bad_api_call');
+add_action('edit_post', 'bad_api_call');
+
 
 // add_action('draft_to_publish', 'bad_api_call');
 
