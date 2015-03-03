@@ -32,10 +32,10 @@ function bad_api_call( $post_id ) {
   add_action( 'admin_notices', 'bad_api_notice' );
 }
 
-// add_action('publish_post', 'bad_api_call');
-// add_action('post_updated', 'bad_api_call');
+add_action('publish_post', 'bad_api_call');
+add_action('post_updated', 'bad_api_call');
 add_action('save_post', 'bad_api_call');
-// add_action('edit_post', 'bad_api_call');
+add_action('edit_post', 'bad_api_call');
 
 
 // add_action('draft_to_publish', 'bad_api_call');
