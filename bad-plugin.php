@@ -38,14 +38,14 @@ class Bad_Widget extends WP_Widget {
         }
         echo __('This is bad widegt! Ok, not at the monet but this is supposed to slow down yours ite!', 'bad_plugin');
         /*
-        bad-query
+          bad-query:: show posts with author-name where post contains certain keywords
         */
-        // $res = $wpdb->get_results("select distinct post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%'",ARRAY_A);
+        $res = $wpdb->get_results("select post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%'",ARRAY_A);
         /*
-        good-query
+          good-query :: fixed mistake in OR condition
         */
-        $res = $wpdb->get_results("select post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND (p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%')", ARRAY_A);
-        var_dump($res);
+        // $res = $wpdb->get_results("select post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND (p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%')", ARRAY_A);
+          var_dump($res);
         echo $args['after_widget'];
     }
 } // class Bad_Widget
