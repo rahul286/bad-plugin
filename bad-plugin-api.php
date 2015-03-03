@@ -23,7 +23,9 @@ function bad_api_notice() {
 function bad_api_call( $post_id ) {
   if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 
-  if ( wp_is_post_revision( $post_id ) )	return;
+  $st = wp_is_post_revision( $post_id );
+
+  if ( $st != 'publish' )	return;
 
   $res = wp_remote_get( 'http://wcmum.rtcamp.net/ping.php');
   var_dump($res);
