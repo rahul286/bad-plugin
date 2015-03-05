@@ -37,6 +37,33 @@ class Bad_Widget extends WP_Widget {
         }
 
 
+        /*
+          bad-query:: show posts with author-name where post contains certain keywords
+        */
+        $res = $wpdb->get_results("select p.ID, post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%'",ARRAY_A);
+
+/*         $res = $wpdb->get_results("select post_title from wp_posts where post_status = 'publish' AND post_type = 'post' AND post_content LIKE '%microsoft%' OR post_content LIKE '%apple%'", ARRAY_A); */
+
+        /*
+          good-query :: fixed mistake in OR condition
+        */
+/*         $res = $wpdb->get_results("select p.ID, post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND ( p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%') ",ARRAY_A); */
+
+
+        /*
+          better-query :: fixed mistake in OR condition
+        */
+/*         $res = $wpdb->get_results("select p.ID, post_title, display_name from wp_posts p, wp_users u WHERE p.post_author = u.ID AND p.post_status = 'publish' AND p.post_type = 'post' AND ( p.post_content LIKE '%microsoft%' OR  p.post_content LIKE '%apple%' LIMIT 5) ",ARRAY_A); */
+
+        
+		/* Display first 5 rows */
+        echo '<ul>';
+        for($i = 0; $i < 5; $i++){
+/*         	var_dump($res[$i]); */
+	      	echo '<li><a href="'. get_permalink( $res[$i]['ID'] ) . '">'. $res[$i]['post_title'] .'</a> by '. $res[$i]['display_name'] . '</li>';
+        } 
+        echo '</ul>';
+
         echo $args['after_widget'];
     }
 } // class Bad_Widget

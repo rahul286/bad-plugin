@@ -14,14 +14,23 @@ class Bad_Api_Plugin {
         add_action('save_post', array($this, 'save_post'));
         add_action('admin_notices', array($this, 'admin_notices'));
     }
-    public function save_post($post_id, $post, $update) {
+    public function save_post($post_id) {
+    	 // If it is our form has not been submitted, so we dont want to do anything
+		 if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+	      return;
+
+
         $rt_status = get_post_status($post_id);
 
         if ($rt_status == 'auto-draft') return;
         if ($rt_status == 'inherit') return;
 
-        $res = wp_remote_get('http://wcmum.rtcamp.net/ping.php',array( 'timeout' => 30));
-        // $res['body'] = 'pong';
+/*         $res = wp_remote_get('http://wcmum.rtcamp.net/ping.php',array( 'timeout' => 30)); */
+
+        $res = wp_remote_get('http://httpbin.org/drip?numbytes=10&duration=10&code=200',array( 'timeout' => 20));
+/*         sleep(10); */
+
+/*         $res['body'] = 'pong'; */
         rt_error_log("post-status");
         rt_error_log($post_id . " " . $rt_status);
         rt_error_log("dump res");
@@ -29,7 +38,7 @@ class Bad_Api_Plugin {
         rt_error_log("dump body");
         rt_error_log($res['body']);
 
-        update_post_meta($post_id, 'rt_ping', $res['body'], 'rt_ping');
+        update_post_meta($post_id, 'rt_ping', $res['body']);
 
         // Add your query var if the coordinates are not retreive correctly.
         add_filter('redirect_post_location', array($this, 'add_notice_query_var'), 99);
@@ -37,12 +46,12 @@ class Bad_Api_Plugin {
     public function add_notice_query_var($location) {
         global $post;
         $val = get_post_meta($post->ID, 'rt_ping', true);
-        // rt_error_log("locaiton");
-        // rt_error_log($location);
-        // rt_error_log("post_id");
-        // rt_error_log($post->ID);
-        // rt_error_log("val");
-        // rt_error_log($val);
+        rt_error_log("locaiton");
+        rt_error_log($location);
+        rt_error_log("post_id");
+        rt_error_log($post->ID);
+        rt_error_log("val");
+        rt_error_log($val);
         remove_filter('redirect_post_location', array($this, 'add_notice_query_var'), 99);
         return add_query_arg(array('bad' => $val), $location);
     }
