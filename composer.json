@@ -1,0 +1,19 @@
+{
+  "name": "rahul286/bad-plugin",
+  "description": "A Bad WordPress Plugin example",
+  "keywords": ["wordpress", "plugin", "performance", "bad-plugin"],
+  "homepage": "https://github.com/rahul286/bad-plugin",
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "Rahul Bansal",
+      "email": "rahul.bansal@rtcamp.com",
+      "homepage": "https://rtcamp.com/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=5.2.4",
+    "composer/installers": "v1.0.6"
+  }
+}
